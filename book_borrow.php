@@ -1,5 +1,18 @@
 <?php
+// use session that is passed from recent php file
 session_start();
+
+// check session variable to see if "userId" variable is set
+// check session variable to see if its valid session
+if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
+    echo $_SESSION["userID"];
+    echo $_SESSION["authuser"];
+    echo 'Sorry, but you don\'t have permission to view this page!';
+    exit();
+}
+
+// if valid, save userID session variable to html variable
+$userID = $_SESSION["userID"];
 ?>
 
 <!DOCTYPE html>
@@ -84,14 +97,14 @@ session_start();
 
         $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
 
-        // 이쪽만 바꾸면 됨
-        $borrower_id = 'dog';
+        // already extracted userID from the top when checking if session is valid
+        $borrower_id = $userID;
         
         $book_id = $_POST['book_id'];
 
-        $query = "INSERT INTO historyDB (borrower_id, book_id, returned) VALUES('$borrower_id', '$book_id', FALSE)";
+        $borrowBookQuery = "INSERT INTO historyDB (borrower_id, book_id, returned) VALUES('$borrower_id', '$book_id', FALSE)";
         
-        mysqli_query($db, $query) or die(mysqli_error($db));
+        mysqli_query($db, $borrowBookQuery) or die(mysqli_error($db));
 
         $db->close();
     }

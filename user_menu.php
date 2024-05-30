@@ -20,14 +20,26 @@ $userID = $_SESSION["userID"];
         <title>USER MENU</title>
     </head>
     <body>
-    <?php
-    echo '<h1> Hello ' . $userID. '!</h1>';
-    ?>
+        <?php
+            echo '<h1> Hello ' . $userID. '!</h1>';
+        ?>
         <ol>
             <li><a href="borrowBook.php">borrow books</a></li>
             <li><a href="returnBook.html">return books</a></li>
             <li><a href="checkHistory.php">check history</a></li>
             <li><a href="updateInfo.php">update info</a></li>
         </ol>
+
+        <form action="" method="post">
+            <input type="submit" name="logout" value="LOGOUT">
+        </form>
+        
+        <?php
+            if (isset($_POST['logout'])){
+                unset($_SESSION['userID']);
+                unset($_SESSION['authuser']);
+                header("Location: login.php");
+            }
+        ?>
     </body>
 </html>

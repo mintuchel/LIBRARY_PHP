@@ -1,5 +1,18 @@
 <?php
+// use session that is passed from recent php file
 session_start();
+
+// check session variable to see if "userId" variable is set
+// check session variable to see if its valid session
+if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
+    echo $_SESSION["userID"];
+    echo $_SESSION["authuser"];
+    echo 'Sorry, but you don\'t have permission to view this page!';
+    exit();
+}
+
+// if valid, save userID session variable to html variable
+$userID = $_SESSION["userID"];
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +52,7 @@ session_start();
         $age = $_POST['age'];
         $phonenum = $_POST['phonenum'];
 
-        $updatingMemberID = "dog";
+        $updatingMemberID = $userID;
 
         $updateMemberQuery = "UPDATE memberDB SET pw = '$pw', name = '$name', age = '$age', phonenum = '$phonenum' WHERE BINARY(id) = '$updatingMemberID'";
         

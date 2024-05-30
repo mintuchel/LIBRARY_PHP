@@ -1,5 +1,18 @@
 <?php
+// use session that is passed from recent php file
 session_start();
+
+// check session variable to see if "userId" variable is set
+// check session variable to see if its valid session
+if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
+    echo $_SESSION["userID"];
+    echo $_SESSION["authuser"];
+    echo 'Sorry, but you don\'t have permission to view this page!';
+    exit();
+}
+
+// if valid, save userID session variable to html variable
+$userID = $_SESSION["userID"];
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +38,7 @@ session_start();
 
         $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
 
-        $borrower_id = 'dog';
+        $borrower_id = $userID;
         
         // get books from historyDB which borrower borrowed and didnt return
         $query = "SELECT book_id FROM historyDB WHERE borrower_id = '$borrower_id' AND returned = FALSE";
