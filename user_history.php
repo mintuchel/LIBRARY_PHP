@@ -24,13 +24,8 @@ $userID = $_SESSION["userID"];
 </head>
 <body>
     <h2>Check Borrow History</h2>
-    <form method="post" action="">
-        <input type="submit" name="retrieve" value="Show">
-    </form>
 
     <?php
-    if(isset($_POST['retrieve'])) {
-
         $servername = 'localhost';
         $user = 'root';
         $pass = '1234';
@@ -73,7 +68,6 @@ $userID = $_SESSION["userID"];
         echo "</table>";
 
         $db->close();
-    }
     ?>  
 </body>
 </html>

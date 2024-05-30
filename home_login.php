@@ -1,13 +1,16 @@
 <?php
-// 1. session start must be called at the beginning of each script where session data is accessed or modified
+// 1. session start must be called at the beginning of each script to use session data passed between forms
 // 2. It ensures a session is available and allows access to session variables through the $_SESSION superglobal array.
 // 3. Placing session_start() at the top of your script, before any output, ensures session functionality works correctly.
+
+// if already exists, it uses passed session
+// if not, it creates new session
 session_start();
 ?>
 
 <html>
     <head>
-        <title>LIBRARY</title>
+        <title>[LIBRARY]</title>
     </head>
     <body>
         <!-- leave actionURL blank to only redirect if login is valid -->
@@ -22,7 +25,7 @@ session_start();
                 <input type="submit" name="login" value="LOGIN"/>
             </p>
         </form>
-        <a href="createAccount.php">Create New Account</a>
+        <a href="home_createAccount.php">Create New Account</a>
 
         <?php
         if (isset($_POST['login']))
@@ -51,7 +54,7 @@ session_start();
             $_SESSION["authuser"] = true;
 
             // redirect to userMenu.php
-            header("Location: userMenu.php");
+            header("Location: user_menu.php");
             exit();
         }else{
             echo "Invalid login";

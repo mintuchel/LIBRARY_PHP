@@ -24,10 +24,10 @@ $userID = $_SESSION["userID"];
             echo '<h1> Hello ' . $userID. '!</h1>';
         ?>
         <ol>
-            <li><a href="borrowBook.php">borrow books</a></li>
-            <li><a href="returnBook.html">return books</a></li>
-            <li><a href="checkHistory.php">check history</a></li>
-            <li><a href="updateInfo.php">update info</a></li>
+            <li><a href="book_borrow.php">borrow books</a></li>
+            <li><a href="book_return.php">return books</a></li>
+            <li><a href="user_history.php">check history</a></li>
+            <li><a href="user_update.php">update info</a></li>
         </ol>
 
         <form action="" method="post">
