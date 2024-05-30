@@ -10,12 +10,13 @@ session_start();
         <title>LIBRARY</title>
     </head>
     <body>
-        <form action="userMenu.php" method="post">
+        <!-- leave actionURL blank to only redirect if login is valid -->
+        <form action="" method="post">
             <p>Enter your id:
-                <input type="text" name="userId"/>
+                <input type="text" name="userID"/>
             </p>
             <p>Enter your password:
-                <input type="password" name="userPw"/>
+                <input type="password" name="userPW"/>
             </p>
             <p>
                 <input type="submit" name="login" value="LOGIN"/>
@@ -34,20 +35,20 @@ session_start();
         // get db connection object by mysqli command
         $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
 
-        $id = $_POST['userID'];
-        $pw = $_POST['userPw'];
-
-        $checkIfValidLoginQuery = "SELECT EXISTS (SELECT TRUE FROM memberDB WHERE id='$userId' AND pw='$userPw')";
+        $userID = $_POST['userID'];
+        $userPW = $_POST['userPW'];
+    
+        $checkIfValidLoginQuery = "SELECT EXISTS (SELECT TRUE FROM memberDB WHERE id='$userID' AND pw='$userPW')";
         
         $result = mysqli_query($db, $checkIfValidLoginQuery) or die(mysqli_error($db));
 
         $row = mysqli_fetch_row($result);
-
+        
         if($row[0] == 1){
             // set session variable "userID" to track who logged in
-            $_SESSION['userID'] = $id;
+            $_SESSION["userID"] = $userID;
             // set session variable "authuser" to know if this is valid login state from other pages
-            $_SESSION['authuser'] = 1;
+            $_SESSION["authuser"] = true;
 
             // redirect to userMenu.php
             header("Location: userMenu.php");

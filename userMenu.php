@@ -1,11 +1,18 @@
 <?php
+// use session that is passed from recent php file
 session_start();
 
-// check to see if user has logged in with a valid passowrd
-if($_SESSION['authuser'] != 1){
-    echo 'Sorry but you dont have permission to view this page!';
+// check session variable to see if "userId" variable is set
+// check session variable to see if its valid session
+if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
+    echo $_SESSION["userID"];
+    echo $_SESSION["authuser"];
+    echo 'Sorry, but you don\'t have permission to view this page!';
     exit();
 }
+
+// if valid, save userID session variable to html variable
+$userID = $_SESSION["userID"];
 ?>
 
 <html>
@@ -13,9 +20,8 @@ if($_SESSION['authuser'] != 1){
         <title>USER MENU</title>
     </head>
     <body>
-    <!-- getting userId variable value from recieved POST message -->
     <?php
-    echo '<h1> Hello' . $_POST['userId'] . '!</h1>';
+    echo '<h1> Hello ' . $userID. '!</h1>';
     ?>
         <ol>
             <li><a href="borrowBook.php">borrow books</a></li>
@@ -23,4 +29,5 @@ if($_SESSION['authuser'] != 1){
             <li><a href="checkHistory.php">check history</a></li>
             <li><a href="updateInfo.php">update info</a></li>
         </ol>
+    </body>
 </html>
