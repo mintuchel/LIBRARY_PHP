@@ -23,7 +23,7 @@ $userID = $_SESSION["userID"];
     <title>Return Book Form</title>
 </head>
 <body>
-    <h2>Borrow History</h2>
+    <h2>Users's Borrow History</h2>
 
     <?php
         $servername = 'localhost';
@@ -93,6 +93,13 @@ $userID = $_SESSION["userID"];
         $deleteBorrowHistoryQuery = "DELETE FROM historyDB WHERE borrower_id = '$borrower_id' AND book_id = '$book_id' AND returned = FALSE";
         
         $result = mysqli_query($db, $deleteBorrowHistoryQuery) or die(mysqli_error($db));
+
+        // pop alert by javascript
+        // go back to user_menu.php
+        echo '<script type="text/javascript">
+            alert("RETURN BOOK SUCCESS!");
+            window.location="http://localhost/php/LIBRARY_PHP/user_menu.php";
+            </script>';
     }
     ?>
 

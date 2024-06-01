@@ -38,7 +38,8 @@ $userID = $_SESSION["userID"];
             if (isset($_POST['logout'])){
                 unset($_SESSION['userID']);
                 unset($_SESSION['authuser']);
-                header("Location: login.php");
+                header("Location: home_login.php");
+                exit();
             }
         ?>
     </body>

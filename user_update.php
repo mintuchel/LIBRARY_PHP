@@ -59,6 +59,13 @@ $userID = $_SESSION["userID"];
         mysqli_query($db, $updateMemberQuery) or die(mysqli_error($db));
 
         $db->close();
+
+        // pop alert by javascript
+        // go back to user_menu.php
+        echo '<script type="text/javascript">
+            alert("USER UPDATE SUCCESS!");
+            window.location="http://localhost/php/LIBRARY_PHP/user_menu.php";
+            </script>';
     }
     ?>
     

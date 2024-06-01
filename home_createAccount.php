@@ -20,7 +20,7 @@ session_start();
             <p>Phone Number: <input type="text" name="phonenum" maxlength="10" required></p>
         </fieldset>
         <br>
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" name="submit" value="CREATE ACCOUNT">
     </form>
 
     <!-- 이건 잘됨. memberDB 에 잘 들어감 -->
@@ -40,9 +40,18 @@ session_start();
         $age = $_POST['age'];
         $phonenum = $_POST['phonenum'];
 
-        $query = "INSERT INTO memberdb (id, pw, name, age, phonenum) VALUES ('$id', '$pw', '$name', '$age', '$phonenum')";
+        $addNewMemberQuery = "INSERT INTO memberdb (id, pw, name, age, phonenum) VALUES ('$id', '$pw', '$name', '$age', '$phonenum')";
         
-        mysqli_query($db, $query) or die(mysqli_error($db));
+        mysqli_query($db, $addNewMemberQuery) or die(mysqli_error($db));
+
+        $db->close();
+
+        // pop alert by javascript
+        // go back to user_menu.php
+        echo '<script type="text/javascript">
+            alert("CREATE ACCOUNT SUCCESS");
+            window.location="http://localhost/php/LIBRARY_PHP/home_login.php";
+            </script>';
     }
     ?>
 </body>
