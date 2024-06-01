@@ -52,7 +52,7 @@ $userID = $_SESSION["userID"];
                 // using another query to get the real book data from bookDB
                 $query = "SELECT * FROM bookDB WHERE id = '$book_id'";
                         
-                $curBookResult = mysqli_query($db, $query) or die(mysqli_error($db));
+                $curBookResult = mysqli_query($db, $query);
                 
                 if ($curBookResult->num_rows > 0) {
                     while($curBook = mysqli_fetch_array($curBookResult)) {
@@ -67,7 +67,9 @@ $userID = $_SESSION["userID"];
         }
         echo "</table>";
 
+        $curBookResult->close();
+        $result->close();
         $db->close();
-    ?>  
+    ?>
 </body>
 </html>

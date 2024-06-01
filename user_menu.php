@@ -18,21 +18,34 @@ $userID = $_SESSION["userID"];
 <html>
     <head>
         <title>USER MENU</title>
+        <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+    </style>
     </head>
     <body>
-        <?php
-            echo '<h1> Hello ' . $userID. '!</h1>';
-        ?>
-        <ol>
-            <li><a href="book_borrow.php">borrow books</a></li>
-            <li><a href="book_return.php">return books</a></li>
-            <li><a href="user_history.php">check history</a></li>
-            <li><a href="user_update.php">update info</a></li>
-        </ol>
+        <fieldset>
+            
+            <?php echo '<h1> Hello ' . $userID. '!</h1>'; ?>
 
-        <form action="" method="post">
-            <input type="submit" name="logout" value="LOGOUT">
-        </form>
+            <p><a href="book_borrow.php">borrow books</a></p>
+            <p><a href="book_return.php">return books</a></p>
+            <p><a href="user_history.php">check history</a></p>
+            <p><a href="user_update.php">update info</a></p>
+            
+            <form action="" method="post">
+                <input type="submit" name="logout" value="LOGOUT">
+            </form>
+        
+        </fieldset>
         
         <?php
             if (isset($_POST['logout'])){

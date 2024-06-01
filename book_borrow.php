@@ -21,6 +21,18 @@ $userID = $_SESSION["userID"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrow Book</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
 
@@ -82,7 +94,7 @@ $userID = $_SESSION["userID"];
     <!-- make user to put id of the wanted book -->
     <form method="post" action="">
         <label>book you want to borrow</label><br>
-        <input type="text" id="book_id" name="book_id" required ><br>
+        <input type="text" id="book_id" name="book_id" required><br>
         <input type="submit" name="submit" value="Submit">
     </form>
 
@@ -102,10 +114,27 @@ $userID = $_SESSION["userID"];
         
         $book_id = $_POST['book_id'];
 
+        $checkIfBookExistsQuery = "SELECT EXISTS (SELECT TRUE FROM bookDB WHERE id = $book_id AND deleted = FALSE AND requested = FALSE)";
+
+        $result = mysqli_query($db, $checkIfBookExistsQuery);
+
+        $row = mysqli_fetch_row($result);
+        
+        // if book doesnt exist we have to end the php code
+        if($row[0] == 0){
+            echo '<script type="text/javascript">
+                alert("THIS BOOK DOESNT EXIST!");
+                </script>';
+            // have to end current php code
+            $db->close();
+            exit();
+        }
+
         $borrowBookQuery = "INSERT INTO historyDB (borrower_id, book_id, returned) VALUES('$borrower_id', '$book_id', FALSE)";
         
         mysqli_query($db, $borrowBookQuery) or die(mysqli_error($db));
 
+        $result->close();
         $db->close();
     
         // pop alert by javascript
@@ -115,6 +144,6 @@ $userID = $_SESSION["userID"];
             window.location="http://localhost/php/LIBRARY_PHP/user_menu.php";
             </script>';
     }
-    ?>  
+    ?>
 </body>
 </html>

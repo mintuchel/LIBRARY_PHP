@@ -102,6 +102,5 @@ $userID = $_SESSION["userID"];
             </script>';
     }
     ?>
-
 </body>
 </html>

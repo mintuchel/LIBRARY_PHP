@@ -11,21 +11,38 @@
 <html>
     <head>
         <title>[LIBRARY]</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+            }
+        </style>
     </head>
     <body>
-        <!-- leave actionURL blank to only redirect if login is valid -->
-        <form action="" method="post">
-            <p>Enter your id:
-                <input type="text" name="userID"/>
-            </p>
-            <p>Enter your password:
-                <input type="password" name="userPW"/>
-            </p>
-            <p>
-                <input type="submit" name="login" value="LOGIN"/>
-            </p>
-        </form>
-        <a href="home_createAccount.php">Create New Account</a>
+
+        <h1>Login</h1>
+
+        <fieldset>
+            <!-- leave actionURL blank to only redirect if login is valid -->
+            <form action="" method="post">
+                <p>Enter your id:
+                    <input type="text" name="userID"/>
+                </p>
+                <p>Enter your password:
+                    <input type="password" name="userPW"/>
+                </p>
+                <p>
+                    <input type="submit" name="login" value="Login"/>
+                </p>
+                <a href="home_createAccount.php">Create Account</a>
+            </form>
+        </fieldset>
 
         <?php
             if (isset($_POST['login']))
