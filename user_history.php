@@ -20,17 +20,34 @@ $userID = $_SESSION["userID"];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Check Borrow History</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        th, td {
+            width: 33%;
         }
     </style>
 </head>
@@ -47,12 +64,12 @@ $userID = $_SESSION["userID"];
 
         $borrower_id = $userID;
         
-        // get books from historyDB which borrower borrowed and didnt return
+        // get books from historyDB which borrower borrowed and didn't return
         $query = "SELECT book_id FROM historyDB WHERE borrower_id = '$borrower_id' AND returned = FALSE";
         
         $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
-        echo "<table border='3'>";
+        echo "<table>";
         echo "<tr><th>BookID</th><th>Name</th><th>Author</th></tr>";
 
         if ($result->num_rows > 0) {
