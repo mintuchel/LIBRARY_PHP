@@ -23,127 +23,162 @@ $userID = $_SESSION["userID"];
     <title>Borrow Book</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .table-container {
+            width: 70%;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        .form-container {
+            width: 70%;
+        }
+        form {
+            display: block;
+            text-align: left;
         }
     </style>
 </head>
 <body>
+    <div class="content">
+        <!-- have to get the books first -->
+        <!-- get the books from db and show it on screen -->
+        <?php
+            $servername = 'localhost';
+            $user = 'root';
+            $pass = '1234';
+            $dbname = 'ensharp';
 
-    <!-- have to get the books first -->
-    <!-- get the books from db and show it on screen -->
-    <?php
-        $servername = 'localhost';
-        $user = 'root';
-        $pass = '1234';
-        $dbname = 'ensharp';
+            // get connection object first
+            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
 
-        // get connection object first
-        $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $selectBookQuery = "SELECT * FROM bookDB WHERE requested = FALSE";
+            
+            // get rows from database that match with selectBookQuery form DB
+            $result = mysqli_query($db, $selectBookQuery) or die(mysqli_error($db));
+            $num_books = mysqli_num_rows($result);
 
-        $selectBookQuery = "SELECT * FROM bookDB WHERE requested = FALSE";
-        
-        // get rows from database that match with selectBookQuery form DB
-        $result = mysqli_query($db, $selectBookQuery) or die(mysqli_error($db));
-        $num_books = mysqli_num_rows($result);
-
-        // tr = table row
-        // th = table header
-        // td = table data
-        // have to use = because we are assigning the initial value
-        $table = <<<ENDHTML
-            <div style = "text-align: center;">
-                <h2>You can borrow these books</h2>
-                <table border="1" cellpadding="2" cellspacing="2"
-                style="width:70%; margin-left:auto; margin-right:auto;">
-                    <tr> 
-                        <th>BookDI</th>
-                        <th>BookName</th>
-                        <th>Author</th>
-                    </tr>
-        ENDHTML;
-
-        // loop through the results
-        while($row = mysqli_fetch_assoc($result)){
-            extract($row);
-            // have to add strings to the original herodoc variable so use .=
-            $table .= <<<ENDHTML
-                <tr>
-                    <td> $id </td>
-                    <td> $name </td>
-                    <td> $author </td>
-                </tr>
+            // tr = table row
+            // th = table header
+            // td = table data
+            // have to use = because we are assigning the initial value
+            $table = <<<ENDHTML
+                <div class="table-container">
+                    <h2>Library Book List</h2>
+                    <table>
+                        <tr> 
+                            <th>BookID</th>
+                            <th>BookName</th>
+                            <th>Author</th>
+                            <th>Publisher</th>
+                            <th>Price</th>
+                            <th>InStock</th>
+                            <th>PublishDate</th>
+                            <th>ISBN</th>
+                        </tr>
             ENDHTML;
-        }
 
-        $table .= <<<ENDHTML
-        </table>
-        <p> $num_books Books </p>
+            // loop through the results
+            while($row = mysqli_fetch_assoc($result)){
+                extract($row);
+                // have to add strings to the original herodoc variable so use .=
+                $table .= <<<ENDHTML
+                    <tr>
+                        <td> $id </td>
+                        <td> $name </td>
+                        <td> $author </td>
+                        <td> $publisher </td>
+                        <td> $price </td>
+                        <td> $instock </td>
+                        <td> $date </td>
+                        <td> $isbn </td>
+                    </tr>
+                ENDHTML;
+            }
+
+            $table .= <<<ENDHTML
+                    </table>
+                </div>
+            ENDHTML;
+            
+            echo $table;
+        ?>
+
+        <!-- make user to put id of the wanted book -->
+        <div class="form-container">
+            <form method="post" action="">
+                <label for="book_id">Book you want to borrow:</label><br>
+                <input type="text" id="book_id" name="book_id" required><br>
+                <input type="submit" name="submit" value="Submit">
+            </form>
         </div>
-        ENDHTML;
 
-        echo $table;
-    ?>
+        <!-- if submit button is clicked, php does the action below -->
+        <?php
+        if (isset($_POST['submit'])) {
 
-    <!-- make user to put id of the wanted book -->
-    <form method="post" action="">
-        <label>book you want to borrow</label><br>
-        <input type="text" id="book_id" name="book_id" required><br>
-        <input type="submit" name="submit" value="Submit">
-    </form>
+            $servername = 'localhost';
+            $user = 'root';
+            $pass = '1234';
+            $dbname = 'ensharp';
 
-    <!-- if submit button is clicked, php does the action below -->
-    <?php
-    if (isset($_POST['submit'])) {
+            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
 
-        $servername = 'localhost';
-        $user = 'root';
-        $pass = '1234';
-        $dbname = 'ensharp';
+            // already extracted userID from the top when checking if session is valid
+            $borrower_id = $userID;
+            
+            $book_id = $_POST['book_id'];
 
-        $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $checkIfBookExistsQuery = "SELECT EXISTS (SELECT TRUE FROM bookDB WHERE id = $book_id AND deleted = FALSE AND requested = FALSE)";
 
-        // already extracted userID from the top when checking if session is valid
-        $borrower_id = $userID;
-        
-        $book_id = $_POST['book_id'];
+            $result = mysqli_query($db, $checkIfBookExistsQuery);
 
-        $checkIfBookExistsQuery = "SELECT EXISTS (SELECT TRUE FROM bookDB WHERE id = $book_id AND deleted = FALSE AND requested = FALSE)";
+            $row = mysqli_fetch_row($result);
+            
+            // if book doesnt exist we have to end the php code
+            if($row[0] == 0){
+                echo '<script type="text/javascript">
+                    alert("THIS BOOK DOESNT EXIST!");
+                    </script>';
+                // have to end current php code
+                $db->close();
+                exit();
+            }
 
-        $result = mysqli_query($db, $checkIfBookExistsQuery);
+            $borrowBookQuery = "INSERT INTO historyDB (borrower_id, book_id, returned) VALUES('$borrower_id', '$book_id', FALSE)";
+            
+            mysqli_query($db, $borrowBookQuery) or die(mysqli_error($db));
 
-        $row = mysqli_fetch_row($result);
-        
-        // if book doesnt exist we have to end the php code
-        if($row[0] == 0){
-            echo '<script type="text/javascript">
-                alert("THIS BOOK DOESNT EXIST!");
-                </script>';
-            // have to end current php code
+            $result->close();
             $db->close();
-            exit();
-        }
-
-        $borrowBookQuery = "INSERT INTO historyDB (borrower_id, book_id, returned) VALUES('$borrower_id', '$book_id', FALSE)";
         
-        mysqli_query($db, $borrowBookQuery) or die(mysqli_error($db));
-
-        $result->close();
-        $db->close();
-    
-        // pop alert by javascript
-        // go back to user_menu.php
-        echo '<script type="text/javascript">
-            alert("BORROW BOOK SUCCESS!");
-            window.location="http://localhost/php/LIBRARY_PHP/user_menu.php";
-            </script>';
-    }
-    ?>
+            // pop alert by javascript
+            // go back to user_menu.php
+            echo '<script type="text/javascript">
+                alert("BORROW BOOK SUCCESS!");
+                window.location="http://localhost/php/LIBRARY_PHP/user_menu.php";
+                </script>';
+        }
+        ?>
+    </div>
 </body>
 </html>
