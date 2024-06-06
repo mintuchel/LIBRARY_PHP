@@ -1,17 +1,9 @@
 <?php
-// use session that is passed from recent php file
-session_start();
+require("./scripts/common.php");
+?>
 
-// check session variable to see if "userId" variable is set
-// check session variable to see if its valid session
-if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
-    echo $_SESSION["userID"];
-    echo $_SESSION["authuser"];
-    echo 'Sorry, but you don\'t have permission to view this page!';
-    exit();
-}
-
-// if valid, save userID session variable to html variable
+<?php
+checkSession();
 $userID = $_SESSION["userID"];
 ?>
 
@@ -21,43 +13,9 @@ $userID = $_SESSION["userID"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrow Book</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .table-container {
-            width: 70%;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        .form-container {
-            width: 70%;
-        }
-        form {
-            display: block;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/style.css" />
 </head>
+
 <body>
     <div class="content">
         <!-- have to get the books first -->

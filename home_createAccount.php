@@ -8,18 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Account</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/style.css" />
 </head>
 <body>
     <h2>Create New Account</h2>
@@ -30,7 +19,7 @@ session_start();
             <p>Password: <input type="password" name="pw" placeholder="Write your password" maxlength="10" required></p>
             <p>Name: <input type="text" name="name" placeholder="Write your name" maxlength="10" required></p>
             <p>Age: <input type="text" name="age" maxlength="5" required></p>
-            <p>Phone Number: <input type="text" name="phonenum" maxlength="10" required></p>
+            <p>Phone Number: <input type="text" name="phonenum" maxlength="13" required></p>
         </fieldset>
         <br>
         <input type="submit" name="submit" value="CREATE ACCOUNT">

@@ -1,17 +1,9 @@
 <?php
-// use session that is passed from recent php file
-session_start();
+require("./scripts/common.php");
+?>
 
-// check session variable to see if "userId" variable is set
-// check session variable to see if its valid session
-if (!isset($_SESSION["userID"]) || $_SESSION["authuser"] !== true) {
-    echo $_SESSION["userID"];
-    echo $_SESSION["authuser"];
-    echo 'Sorry, but you don\'t have permission to view this page!';
-    exit();
-}
-
-// if valid, save userID session variable to html variable
+<?php
+checkSession();
 $userID = $_SESSION["userID"];
 ?>
 
@@ -21,18 +13,7 @@ $userID = $_SESSION["userID"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPDATE FORM</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/style.css" />
 </head>
 <body>
     <h2>UPDATE YOUR INFO</h2>
