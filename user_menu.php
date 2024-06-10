@@ -17,19 +17,19 @@ $userID = $_SESSION["userID"];
             
             <?php echo '<h1> Hello ' . $userID. '!</h1>'; ?>
 
-            <p><a href="book_borrow.php">borrow books</a></p>
-            <p><a href="book_return.php">return books</a></p>
-            <p><a href="user_history.php">check history</a></p>
-            <p><a href="user_update.php">update info</a></p>
+            <p><a href="book_borrow.php" style="text-decoration: none; color: blue;">borrow books</a></p>
+            <p><a href="book_return.php" style="text-decoration: none; color: blue;">return books</a></p>
+            <p><a href="user_history.php" style="text-decoration: none; color: blue;">check history</a></p>
+            <p><a href="user_update.php" style="text-decoration: none; color: blue;">update info</a></p>
             
-            <form action="" method="post">
+            <form action="" method="get">
                 <input type="submit" name="logout" value="LOGOUT">
             </form>
         
         </fieldset>
         
         <?php
-            if (isset($_POST['logout'])){
+            if (isset($_GET['logout'])){
                 unset($_SESSION['userID']);
                 unset($_SESSION['authuser']);
                 header("Location: home_login.php");
