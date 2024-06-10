@@ -14,4 +14,18 @@ function checkSession()
         exit();
     }
 }
+
+function getDBConnection()
+{
+    $servername = 'localhost';
+    $user = 'root';
+    $pass = '1234';
+    $dbname = 'ensharp';
+
+    // get db connection object by mysqli command
+    $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+
+    return $db;
+}
+
 ?>

@@ -19,12 +19,7 @@ $userID = $_SESSION["userID"];
     <h2>Check Borrow History</h2>
 
     <?php
-        $servername = 'localhost';
-        $user = 'root';
-        $pass = '1234';
-        $dbname = 'ensharp';
-
-        $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+        $db = getDBConnection();
 
         $borrower_id = $userID;
         

@@ -29,12 +29,7 @@ session_start();
     <?php
     if (isset($_POST['submit'])) {
 
-        $servername = 'localhost';
-        $user = 'root';
-        $pass = '1234';
-        $dbname = 'ensharp';
-
-        $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+        $db = getDBConnection();
 
         $id = $_POST['id'];
         $pw = $_POST['pw'];

@@ -32,13 +32,7 @@ $userID = $_SESSION["userID"];
     <?php
     if (isset($_POST['submit']))
     {
-        $servername = 'localhost';
-        $user = 'root';
-        $pass = '1234';
-        $dbname = 'ensharp';
-
-        // getting db connection object by mysqli command
-        $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+        $db = getDBConnection();
 
         $pw = $_POST['pw'];
         $name = $_POST['name'];

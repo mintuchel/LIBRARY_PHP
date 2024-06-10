@@ -20,12 +20,7 @@ $userID = $_SESSION["userID"];
         <h2>User's Borrow History</h2>
 
         <?php
-            $servername = 'localhost';
-            $user = 'root';
-            $pass = '1234';
-            $dbname = 'ensharp';
-
-            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $db = getDBConnection();
 
             $borrower_id = $userID;
             
@@ -77,12 +72,7 @@ $userID = $_SESSION["userID"];
 
         <?php
         if (isset($_POST['return'])) {
-            $servername = 'localhost';
-            $user = 'root';
-            $pass = '1234';
-            $dbname = 'ensharp';
-
-            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $db = getDBConnection();
 
             $borrower_id = $userID;
             $book_id = $_POST['returnBookId'];

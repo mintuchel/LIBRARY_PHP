@@ -21,13 +21,7 @@ $userID = $_SESSION["userID"];
         <!-- have to get the books first -->
         <!-- get the books from db and show it on screen -->
         <?php
-            $servername = 'localhost';
-            $user = 'root';
-            $pass = '1234';
-            $dbname = 'ensharp';
-
-            // get connection object first
-            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $db = getDBConnection();
 
             $selectBookQuery = "SELECT * FROM bookDB WHERE requested = FALSE";
             
@@ -94,12 +88,7 @@ $userID = $_SESSION["userID"];
         <?php
         if (isset($_POST['submit'])) {
 
-            $servername = 'localhost';
-            $user = 'root';
-            $pass = '1234';
-            $dbname = 'ensharp';
-
-            $db = new mysqli($servername, $user, $pass, $dbname) or die("Unable to connect");
+            $db = getDBConnection();
 
             // already extracted userID from the top when checking if session is valid
             $borrower_id = $userID;
