@@ -1,4 +1,8 @@
 <?php
+require("./scripts/common.php");
+?>
+
+<?php
 session_start();
 ?>
 
