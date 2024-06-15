@@ -63,7 +63,12 @@ session_start();
             header("Location: user_menu.php");
             exit();
         } else {
-            echo "<script>showPopUp();</script>";
+            echo '<script type="text/javascript">
+                    alert("THIS ACCOUNT DOESNT EXIST!");
+                    </script>';
+            // have to end current php code
+            $db->close();
+            exit();
         }
 
         $result->free_result();
@@ -71,11 +76,6 @@ session_start();
         $db->close();
     }
     ?>
-    <script>
-        function showPopUp() {
-            window.alert("INVALID LOGIN");
-        }
-    </script>
 </body>
 
 </html>

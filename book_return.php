@@ -17,7 +17,8 @@ $userID = $_SESSION["userID"];
 </head>
 <body>
     <div class="content">
-        <h2>User's Borrow History</h2>
+        
+        <?php echo '<h2>' . $userID. '\'s returnable books </h2>'; ?>
 
         <?php
             $db = getDBConnection();

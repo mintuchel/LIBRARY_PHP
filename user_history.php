@@ -16,7 +16,7 @@ $userID = $_SESSION["userID"];
     <link rel="stylesheet" href="./styles/style.css" />
 </head>
 <body>
-    <h2>Check Borrow History</h2>
+    <?php echo '<h2>' . $userID. '\'s borrow history </h2>'; ?>
 
     <?php
         $db = getDBConnection();

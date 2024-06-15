@@ -16,7 +16,8 @@ $userID = $_SESSION["userID"];
     <link rel="stylesheet" href="./styles/style.css" />
 </head>
 <body>
-    <h2>UPDATE YOUR INFO</h2>
+    <?php echo '<h2> UPDATE ' . $userID. '\'s INFO </h2>'; ?>
+
     <form action="" method="post">
         <fieldset>
             <p>new pw: <input type="text" name="pw" maxlength="10" required /></p>
